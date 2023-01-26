@@ -1,6 +1,6 @@
 class Node:
     """
-    Instances of this class represent nodes for a chained list
+    Instances of this class represent nodes for a linked list
     """
     
     def __init__(self, prev, next, value):

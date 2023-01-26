@@ -1,6 +1,10 @@
 from node import Node
 
-class LRU:
+class LinkedList:
+    """
+    Represents a linked list.
+    If the list size exceeds <n>; <m> nodes are removed starting from the tail
+    """
     def __init__(self, n: int, m: int):
         self.head = None
         self.tail = None
@@ -10,7 +14,7 @@ class LRU:
 
     def create(self, value):
         """
-        Add a node to the chained list
+        Add a node to the linked list
         """
         # First node
         if self.head == None:
@@ -38,7 +42,7 @@ class LRU:
     
     def delete(self, value, makehead: bool=False):
         """
-        Remove node with given value from the chained list and from memory
+        Remove node with given value from the linked list and from memory
         If @makehead is True the node containing the specified @value is set as the new head
         """
         node = self.head
@@ -70,7 +74,7 @@ class LRU:
 
     def remove_tail(self):
         """
-        Remove tail from the chained list and from memory
+        Remove tail from the linked list and from memory
         """
         # Get former tail
         last_node = self.tail
@@ -82,7 +86,7 @@ class LRU:
 
     def isInside(self, value) -> bool:
         """
-        Check if the given value is inside the chained list
+        Check if the given value is inside the linked list
         """
         node = self.head
         while node:
@@ -93,25 +97,25 @@ class LRU:
 
     def show(self):
         """
-        Show chained list
+        Show linked list
         """
         node = self.head
         while node:
             print(node)
             node = node.next
 
-    
-            
-
 
 if __name__ == "__main__":
-    lru = LRU(10, 1)
-    lru.create(0)
-    lru.create(1)
-    lru.create(2)
-    lru.create(3)
-    lru.create(4)
-    lru.show()
-    lru.create(2)
+    list = LinkedList(4, 1)
+    # Add nodes to the linked list
+    list.create(0)
+    list.create(1)
+    list.create(2)
+    list.create(3)
+    # Next line should remove node with value 0 from the list
+    list.create(4)
+    list.show()
+    # Since node with value 2 is already in the list; the node should be moved to head
+    list.create(2)
     print("----------------")
-    lru.show()
+    list.show()

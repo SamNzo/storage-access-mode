@@ -1,6 +1,6 @@
 from pymemcache.client.base import Client
 from PIL import Image
-from LRU import LRU
+from LinkedList import LinkedList
 import io
 import os
 
@@ -8,7 +8,7 @@ class MemLRU:
     def __init__(self, n: int, m: int):
         print("Dont forget to run `memcached` in your terminal")
         self.client = Client("localhost")
-        self.lru = LRU(n, m)
+        self.link = LinkedList(n, m)
 
     def create(self, key: str, data: bytearray):
         """
@@ -53,7 +53,7 @@ class MemLRU:
             print("Key {} not found in cache".format(key))
         else:
             print("Key {} found in cache".format(key))
-            self.lru.delete(key, makehead=True)
+            self.link.delete(key, makehead=True)
             if displayImage:
                 image = Image.open(io.BytesIO(data))
                 image.show()
@@ -67,14 +67,14 @@ class MemLRU:
         success = self.client.delete(key, noreply=False)
         if success:
             print("Data was successfully removed from the cache (key={})".format(key))
-            self.lru.delete(key)
+            self.link.delete(key)
         else:
             print("The given key does not match any of the cache's keys")
 
 if __name__ == '__main__':
 
     ### MEMCACHE ###
-    memory = MemLRU()
+    memory = MemLRU(7, 3)
     # Read image file and display image with bytes
     data = memory.readFile("Images/pepe.png", 1)
     # Add data to the cache
