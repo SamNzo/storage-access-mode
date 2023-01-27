@@ -24,7 +24,7 @@ class Tiering:
             # Create in cache
             self.mem.create(cacheKey, data)
 
-    def read(self, filename: str, AWSKeyname: str, cacheKey: str, displayImage: int=0):
+    def read(self, filename: str, AWSKeyname: str, cacheKey: str, displayImage: bool=False):
         """
         Read data from directory
         If error, try in cache
@@ -73,10 +73,10 @@ if __name__ == '__main__':
     tiering.create(2000, data, "new_rick_roll.jpeg", "rick_roll_aws", "rick_roll") # cache
     tiering.create(0, data, "new_rick_roll.jpeg", "rick_roll_aws", "rick_roll") # aws
     # Read data in directory
-    tiering.read("rick_roll.jpeg", "rick_roll_aws", "rick_roll", 1)
+    tiering.read("rick_roll.jpeg", "rick_roll_aws", "rick_roll", displayImage=True)
     # Read data in cache
-    tiering.read("test1.png", "rick_roll_aws", "rick_roll", 1)
+    tiering.read("test1.png", "rick_roll_aws", "rick_roll", displayImage=True)
     # Read data from aws bucket
-    tiering.read("test2.png", "rick_roll_aws", "rick_roll_aws", 1)
+    tiering.read("test2.png", "rick_roll_aws", "rick_roll_aws", displayImage=True)
     # Delete
     tiering.delete("new_rick_roll.jpeg", "rick_roll_aws", "rick_roll")

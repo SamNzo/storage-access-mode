@@ -15,7 +15,7 @@ class Replication:
         self.dir.createFile(filename, data)
         self.aws.create(keyname, data)
 
-    def read(self, filename: str, keyname: str, displayImage: int=0):
+    def read(self, filename: str, keyname: str, displayImage: bool=False):
         """
         Read file from directory
         If error, read from aws and put data in directory
@@ -59,11 +59,11 @@ if __name__ == '__main__':
     # Copy image in new directory
     replication.dir.copyFile("Images/toed.png")
     # Read file from directory (or bucket if error)
-    data = replication.read("toed.png", "toed de Delphine", 1)
+    data = replication.read("toed.png", "toed de Delphine", displayImage=True)
     # Try with error to check if read method works (blabla does not exit in the directory and sousou.png is a key in the bucket)
-    data_from_bucket = replication.read("test.png", "sousou.png", 1)
+    data_from_bucket = replication.read("test.png", "sousou.png", displayImage=True)
     # Display the data copied from aws bucket into directory
-    replication.dir.readFile("test.png", 1)
+    replication.dir.readFile("test.png", displayImage=True)
     # Add previous data to directory & aws bucket
     replication.create(data, "myNewToed.png", "2e toed de Delphine")
     # Display all keys

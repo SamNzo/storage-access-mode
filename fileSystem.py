@@ -40,10 +40,10 @@ class Directory:
             print(e)
         
 
-    def readFile(self, filename: str, displayImage: int=0):
+    def readFile(self, filename: str, displayImage: bool=False):
         """
         Read file and write its data in a byte array.
-        To display byte data as image make displayImage argument equal 1
+        To display byte data as image make displayImage True
         """
         try:
             f = open("{}/{}".format(self.path, filename), 'rb')
@@ -92,9 +92,9 @@ if __name__ == '__main__':
     # List directory files
     directory.listFiles()
     # Read data from image and display it (0 for no display)
-    bytes1 = directory.readFile("mario.png", 1)
-    bytes2 = directory.readFile("yoshi.png", 1)
-    bytes3 = directory.readFile("peach.png", 1)
+    bytes1 = directory.readFile("mario.png", displayImage=True)
+    bytes2 = directory.readFile("yoshi.png", displayImage=True)
+    bytes3 = directory.readFile("peach.png", displayImage=True)
     # Write data collected from previous readings into files
     directory.createFile("new_mario", bytes1)
     directory.createFile("new_yoshi", bytes2)

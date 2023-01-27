@@ -21,10 +21,10 @@ class Mem:
         except Exception as e:
             print(e)
 
-    def readFile(self, path: str, displayImage: int=0) -> bytearray:
+    def readFile(self, path: str, displayImage: bool=False) -> bytearray:
         """
         Read file and write its data in a byte array.
-        To display byte data as image make displayImage argument equal 1
+        To display byte data as image make displayImage True
         """
         try:
             f = open("{}".format(path), 'rb')
@@ -41,7 +41,7 @@ class Mem:
 
         return byte_array
 
-    def readCache(self, key: str, displayImage: int=0):
+    def readCache(self, key: str, displayImage: bool=False):
         """
         Read value from cache
         """
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     ### MEMCACHE ###
     memory = Mem()
     # Read image file and display image with bytes
-    data = memory.readFile("Images/pepe.png", 1)
+    data = memory.readFile("Images/pepe.png", displayImage=True)
     # Add data to the cache
     memory.create("pepe", data)
     # Read data from the cache and display image

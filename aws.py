@@ -27,10 +27,10 @@ class AWSS3:
         obj = self.S3Key.set_contents_from_string(data, encrypt_key=True)
         return obj
 
-    def read(self, filename: str, displayImage: int=0):
+    def read(self, filename: str, displayImage: bool=False):
         """
         Read file and write its data in a byte array.
-        To display byte data as image make displayImage argument equal 1
+        To display byte data as image make displayImage True
         """
         try:
             f = open("{}".format(filename), 'rb')
@@ -46,10 +46,10 @@ class AWSS3:
 
         return data
 
-    def readBucket(self, keyName: str, displayImage: int=0):
+    def readBucket(self, keyName: str, displayImage: bool=False):
         """
         Read bucket key and write its data in a byte array.
-        To display byte data as image make displayImage argument equal 1
+        To display byte data as image make displayImage True
         """
         try:
             self.S3Key.key = keyName

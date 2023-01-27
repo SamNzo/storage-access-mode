@@ -17,16 +17,21 @@ class MemLRU:
             success = self.client.set(key, bytes(data), noreply=False)
             if success:
                 print("Data was successfully added to the cache (key={})".format(key))
-                self.lru.create(key)
+                deleted_keys = self.link.create(key)
+                # If keys were removed from the linked list: remove them from cache
+                # This happens if the list size exceeds <n>
+                if (deleted_keys):
+                    for key in deleted_keys:
+                        self.delete(key, deletefromlist=False)
             else:
                 print("Data was not added to the cache (key={})".format(key))
         except Exception as e:
             print(e)
 
-    def readFile(self, path: str, displayImage: int=0) -> bytearray:
+    def readFile(self, path: str, displayImage: bool=False) -> bytearray:
         """
         Read file and write its data in a byte array.
-        To display byte data as image make displayImage argument equal 1
+        To display byte data as image make displayImage True
         """
         try:
             f = open("{}".format(path), 'rb')
@@ -43,7 +48,7 @@ class MemLRU:
 
         return byte_array
 
-    def readCache(self, key: str, displayImage: int=0):
+    def readCache(self, key: str, displayImage: bool=False):
         """
         Read value from cache
         """
@@ -59,14 +64,15 @@ class MemLRU:
         return data
 
 
-    def delete(self, key: str):
+    def delete(self, key: str, deletefromlist: bool=True):
         """
         Remove data from cache
         """
         success = self.client.delete(key, noreply=False)
         if success:
             print("Data was successfully removed from the cache (key={})".format(key))
-            self.link.delete(key)
+            if deletefromlist:
+                self.link.delete(key)
         else:
             print("The given key does not match any of the cache's keys")
 
@@ -75,10 +81,10 @@ if __name__ == '__main__':
     ### MEMCACHE ###
     memory = MemLRU(7, 3)
     # Read image file and display image with bytes
-    data = memory.readFile("Images/pepe.png", 1)
+    data = memory.readFile("Images/pepe.png", displayImage=True)
     # Add data to the cache
     memory.create("pepe", data)
     # Read data from the cache and display image
-    memory.readCache("pepe", 1)
+    memory.readCache("pepe", displayImage=True)
     # Delete data from cache
     memory.delete("pepe")

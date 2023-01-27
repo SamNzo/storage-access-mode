@@ -12,7 +12,7 @@ class LinkedList:
         self.n = n
         self.m = m
 
-    def create(self, value):
+    def create(self, value) -> None | list:
         """
         Add a node to the linked list
         """
@@ -36,14 +36,19 @@ class LinkedList:
                 self.size += 1
         # If list size exceeds <self.n>: remove last <self.m> nodes from the list
         if (self.size > self.n):
+            deleted_values = []
             for i in range(self.m):
+                deleted_values.append(self.tail.value)
                 self.remove_tail()
+            # Return list of deleted values
+            return deleted_values
 
     
     def delete(self, value, makehead: bool=False):
         """
-        Remove node with given value from the linked list and from memory
-        If @makehead is True the node containing the specified @value is set as the new head
+        Remove node with given value from the linked list.
+        If @makehead is True the node containing the specified @value is set as the new head.
+        Otherwise it is removed from memory.
         """
         node = self.head
         while node.value != value:
@@ -83,6 +88,7 @@ class LinkedList:
         self.tail.next = None
         # Remove last node from memory
         del last_node
+
 
     def isInside(self, value) -> bool:
         """
