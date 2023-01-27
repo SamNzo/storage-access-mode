@@ -1,8 +1,7 @@
 from pymemcache.client.base import Client
 from PIL import Image
-from LinkedList import LinkedList
+from linkedList import LinkedList
 import io
-import os
 
 class MemLRU:
     def __init__(self, n: int, m: int):
