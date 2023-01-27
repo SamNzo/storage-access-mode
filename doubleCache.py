@@ -78,17 +78,18 @@ if __name__ == "__main__":
 
     double_cache = doubleCache("myDoubleCacheDir", 8, 2, 12, 4, AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_HOST, AWS_BUCKET_NAME)
 
-    # Add a file in cache
-    data_cache = double_cache.memLRU.readFile("Images/pepe.png", displayImage=True)
-    double_cache.memLRU.create("mykey", data_cache)
     # Read file and display image
     data_aws = double_cache.aws.read("Images/Nautilus.jpg", displayImage=True)
     # Add previous data to bucket
     double_cache.aws.create("le_nautilus_de_alexis", data_aws)
     # Try with error to check if read method works (test.png does not exit in the directory)
     data_from_bucket = double_cache.read("test.png", "le_nautilus_de_alexis", displayImage=True)
-    # Try again with error but this time for a file only in cache
-    data_from_bucket = double_cache.read("test2.png", "mykey", displayImage=True)
+    # Try again to see if data is fetched from cache
+    data_from_bucket = double_cache.read("test.png", "le_nautilus_de_alexis", displayImage=True)
+    # Check if test.png was added to directory
+    double_cache.dirLRU.listFiles()
+    # Delete everything
+    double_cache.delete("test.png", "le_nautilus_de_alexis")
 
 
 
