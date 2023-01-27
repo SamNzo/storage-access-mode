@@ -35,7 +35,7 @@ pip install python-dotenv
 ```
 
 Create a **.env** file with the following content
-``
+```
 AWS_ACCESS_KEY = "your aws access key"
 AWS_SECRET_KEY = "your aws secret key"
 AWS_HOST = "your aws host link"
