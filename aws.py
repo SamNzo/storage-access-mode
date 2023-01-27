@@ -86,13 +86,13 @@ if __name__ == '__main__':
     # List all bucket keys
     print("Keys from bucket " + aws.bucket.name + ":\n", aws.list())
     # Read file and display image
-    data = aws.read("Images/Nautilus.jpg", 1)
+    data = aws.read("Images/Nautilus.jpg", displayImage=True)
     # Add previous data to bucket
     aws.create("le nautilus de alexis", data)
     # List all bucket keys again
     print("Keys from bucket " + aws.bucket.name + ":\n", aws.list())
     # Read from bucket
-    aws.readBucket("le nautilus de alexis", 1)
+    aws.readBucket("le nautilus de alexis", displayImage=True)
     # Delete from bucket
     aws.delete("le nautilus de alexis")
 

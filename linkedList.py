@@ -44,7 +44,7 @@ class LinkedList:
             return deleted_values
 
     
-    def delete(self, value, makehead: bool=False):
+    def delete(self, value, makehead: bool=False) -> None:
         """
         Remove node with given value from the linked list.
         If @makehead is True the node containing the specified @value is set as the new head.
@@ -54,13 +54,22 @@ class LinkedList:
         while node.value != value:
             node = node.next
         # If node is tail
-        if node.next == None:
+        if node.next == None and node.prev != None:
             node.prev.next = None
             self.tail = node.prev
         # If node is head
-        elif node.prev == None:
+        elif node.prev == None and node.next != None:
             node.next.prev = None
             self.head = node.next
+        # If node is both head and tail
+        elif node.prev == None and node.next == None:
+            if makehead:
+                return
+            else:
+                self.head = None
+                self.tail = None
+                del node
+                return
         # Any other node in the list
         else:
             # Branch next node to previous node
@@ -76,6 +85,7 @@ class LinkedList:
         # Else: remove node from memory
         else:    
             del node
+        
 
     def remove_tail(self):
         """

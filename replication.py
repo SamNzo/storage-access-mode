@@ -22,14 +22,14 @@ class Replication:
         """
         try:
             data = self.dir.readFile(filename, displayImage)
-            if (data == None):
+            if data == None:
                 print("An error occurred while reading directory data")
                 data_from_bucket = self.aws.readBucket(keyname, displayImage)
-                if (data_from_bucket != None):
+                if data_from_bucket != None:
                     print("Data was successfully fetched from aws bucket")
                     self.dir.createFile(filename, data_from_bucket)
                     return data_from_bucket
-                print("An error occured while read bucket data")
+                print("An error occured while reading bucket data")
                 return
             print("Data was successfully read from directory")
         except Exception as e:

@@ -67,7 +67,6 @@ class Mem:
             print("The given key does not match any of the cache's keys")
 
 if __name__ == '__main__':
-
     ### MEMCACHE ###
     memory = Mem()
     # Read image file and display image with bytes
